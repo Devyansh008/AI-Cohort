@@ -27,7 +27,7 @@ from typing import Any, Dict
 from dotenv import load_dotenv
 from fastapi import FastAPI, HTTPException, Request, status
 from fastapi.exceptions import RequestValidationError
-from fastapi.responses import JSONResponse
+from fastapi.responses import HTMLResponse, JSONResponse
 
 from app.api.schemas import Candidate, InterviewRequest, InterviewResponse
 from app.services.llm import llm_service
@@ -162,6 +162,57 @@ def _advance_day_tracking(session, candidate: Candidate) -> None:
         if session.question_count >= checkpoint:
             if day_index < len(passed_days):
                 session.days_discussed.add(passed_days[day_index])
+
+
+# ---------------------------------------------------------------------------
+# Root landing page
+# ---------------------------------------------------------------------------
+
+
+@app.get("/", response_class=HTMLResponse, include_in_schema=False)
+def root() -> HTMLResponse:
+    """Browser-friendly landing page for the deployed API."""
+    html = """
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>AI Cohort Interview Agent</title>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+               background: #0d1117; color: #e6edf3; display: flex; align-items: center;
+               justify-content: center; min-height: 100vh; margin: 0; }
+        .card { background: #161b22; border: 1px solid #30363d; border-radius: 16px;
+                padding: 48px 56px; max-width: 560px; text-align: center; }
+        h1   { font-size: 28px; font-weight: 700; color: #58a6ff; margin: 0 0 8px; }
+        p    { color: #8b949e; margin: 0 0 32px; line-height: 1.6; }
+        .links { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+        a  { background: #21262d; border: 1px solid #30363d; color: #58a6ff;
+             padding: 10px 22px; border-radius: 8px; text-decoration: none;
+             font-weight: 500; transition: background .2s; font-size: 14px; }
+        a:hover { background: #1f6feb; color: #fff; border-color: #1f6feb; }
+        .badge { display: inline-block; background: #0d4b20; border: 1px solid #238636;
+                 color: #3fb950; border-radius: 20px; padding: 3px 12px;
+                 font-size: 12px; margin-bottom: 24px; }
+      </style>
+    </head>
+    <body>
+      <div class="card">
+        <div class="badge">● Live</div>
+        <h1>🤖 AI Cohort Interview Agent</h1>
+        <p>Production-grade stateful AI interview backend powered by<br>
+           <strong>Groq Llama-3.3</strong> &amp; <strong>FastAPI</strong>.</p>
+        <div class="links">
+          <a href="/docs">📖 API Docs</a>
+          <a href="/api/health">❤️ Health Check</a>
+          <a href="https://github.com/Devyansh008/AI-Cohort" target="_blank">⭐ GitHub</a>
+        </div>
+      </div>
+    </body>
+    </html>
+    """
+    return HTMLResponse(content=html)
 
 
 # ---------------------------------------------------------------------------

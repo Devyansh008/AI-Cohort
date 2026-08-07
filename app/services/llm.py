@@ -102,8 +102,8 @@ class LLMService:
     def client(self) -> OpenAI:
         """Return (and lazily create) the OpenAI-compatible client pointed at Groq."""
         if self._client is None:
-            api_key = os.environ.get("GROQ_API_KEY", "")
-            base_url = os.environ.get("GROQ_BASE_URL", "https://api.groq.com/openai/v1")
+            api_key = os.environ.get("GROQ_API_KEY", "").strip()
+            base_url = os.environ.get("GROQ_BASE_URL", "https://api.groq.com/openai/v1").strip()
 
             if not api_key or api_key == "gsk_your-actual-groq-key-here":
                 logger.warning(

@@ -244,8 +244,9 @@ Place raw copies of `curriculum.json` and `candidate.json` inside the `data/` di
 ### Step 5.5: Setup Base Configuration (`.env`)
 Create a local `.env` configuration file:
 ```env
-OPENAI_API_KEY=your-actual-api-key-here
-OPENAI_MODEL=gpt-4o
+GROQ_API_KEY=gsk_your-actual-groq-key-here
+GROQ_MODEL=llama3-70b-8192
+GROQ_BASE_URL=https://api.groq.com/openai/v1
 PORT=8000
 HOST=0.0.0.0
 ```
@@ -414,8 +415,8 @@ from app.api.schemas import Feedback
 
 class LLMService:
     def __init__(self):
-        self.api_key = os.getenv("OPENAI_API_KEY")
-        self.model = os.getenv("OPENAI_MODEL", "gpt-4o")
+        self.api_key = os.getenv("GROQ_API_KEY")
+        self.model = os.getenv("GROQ_MODEL", "llama3-70b-8192")
         self.client = OpenAI(api_key=self.api_key)
 
     def generate_interview_response(self, system_prompt: str, history: list, is_final_turn: bool = False) -> Tuple[str, Any]:
@@ -569,7 +570,7 @@ Please execute the following setup sequence precisely:
 2. Create directories: `app/api`, `app/services`, `app/state`, `tests`, `data`.
 3. Create a python virtual environment `.venv` and install `fastapi`, `uvicorn`, `pydantic`, `openai`, `python-dotenv`, `pytest`, `httpx`.
 4. Output a clean `requirements.txt` containing pinned versions.
-5. Create a boilerplate configuration `.env` file with settings for OPENAI_API_KEY, OPENAI_MODEL=gpt-4o, PORT=8000, and HOST=0.0.0.0.
+5. Create a boilerplate configuration `.env` file with settings for GROQ_API_KEY, GROQ_MODEL=llama3-70b-8192, GROQ_BASE_URL=https://api.groq.com/openai/v1, PORT=8000, and HOST=0.0.0.0.
 6. Confirm directory structure is cleanly structured and ready. Do not write backend business logic files; write only blank placeholder files (`app/__init__.py`, `app/main.py`, `app/api/__init__.py`, `app/api/schemas.py`, `app/services/__init__.py`, `app/services/prompt_builder.py`, `app/services/llm.py`, `app/state/__init__.py`, `app/state/session.py`, `tests/__init__.py`, `tests/test_interview.py`).
 ```
 
@@ -594,7 +595,7 @@ Please inspect and implement the following logic according to these guidelines:
 ## 8. User Responsibilities (Manual Configuration)
 
 To make this completely operational, you must perform these explicit tasks:
-1. **Provide Credentials**: Place your actual OpenAI API Key in `.env` under `OPENAI_API_KEY`.
+1. **Provide Credentials**: Place your actual Groq API Key in `.env` under `GROQ_API_KEY`.
 2. **Move Grounding Files**: Ensure the provided files (`curriculum.json` and `candidate.json`) are correctly named and saved in the root `data/` directory as `curriculum.json` and `candidate.json`.
 3. **Execute Backend**: Fire up the local Uvicorn development server:
    ```bash

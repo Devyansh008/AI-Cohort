@@ -74,22 +74,23 @@ class LLMService:
     """
 
     def __init__(self) -> None:
-        self.model: str = os.getenv("OPENAI_MODEL", "gpt-4o")
+        self.model: str = os.getenv("GROQ_MODEL", "llama3-70b-8192")
         self._client: Optional[OpenAI] = None  # lazy init
         logger.info("LLMService initialised with model=%s (client lazy)", self.model)
 
     @property
     def client(self) -> OpenAI:
-        """Return (and lazily create) the OpenAI client."""
+        """Return (and lazily create) the OpenAI client (configured for Groq)."""
         if self._client is None:
-            api_key = os.getenv("OPENAI_API_KEY", "")
-            if not api_key or api_key == "your_openai_api_key_here":
+            api_key = os.getenv("GROQ_API_KEY", "")
+            if not api_key or api_key == "gsk_your-actual-groq-key-here":
                 logger.warning(
-                    "OPENAI_API_KEY is not set or is a placeholder. "
+                    "GROQ_API_KEY is not set or is a placeholder. "
                     "LLM calls will fail until a valid key is provided."
                 )
             self._client = OpenAI(
                 api_key=api_key or "placeholder",
+                base_url=os.getenv("GROQ_BASE_URL", "https://api.groq.com/openai/v1"),
                 timeout=30.0,
                 max_retries=0,
             )
@@ -215,7 +216,6 @@ class LLMService:
         if parsed_feedback is None:
             # Fallback: extract raw JSON and parse manually
             raw = response.choices[0].message.content or "{}"
-            import json
             parsed_feedback = Feedback.model_validate_json(raw)
 
         logger.info(

@@ -464,11 +464,11 @@ def main() -> None:
         st.markdown("**🌐 Backend API URL**")
         api_url = st.text_input(
             "API URL",
-            value="http://localhost:8000",
+            value="https://ai-cohort-seven.vercel.app",
             label_visibility="collapsed",
             key="api_url",
         )
-        st.caption("Use `https://ai-cohort-seven.vercel.app` for the deployed version.")
+        st.caption("Change to `http://localhost:8000` for local dev.")
         st.divider()
 
         # Candidate selector

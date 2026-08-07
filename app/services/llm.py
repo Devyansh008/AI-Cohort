@@ -46,8 +46,8 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 _MAX_HISTORY_MESSAGES = 20    # prune rolling context to this many messages
-_RETRY_ATTEMPTS = 3           # number of retry attempts on transient failures
-_RETRY_BASE_DELAY = 1.5       # initial backoff delay in seconds (doubles each attempt)
+_RETRY_ATTEMPTS = 2           # number of retry attempts on transient failures
+_RETRY_BASE_DELAY = 1.0       # initial backoff delay in seconds (doubles each attempt)
 
 _FALLBACK_MESSAGE = (
     "I apologise — I'm experiencing a temporary connectivity issue with the AI service. "
@@ -114,7 +114,7 @@ class LLMService:
             self._client = OpenAI(
                 api_key=api_key or "placeholder",
                 base_url=base_url,
-                timeout=30.0,
+                timeout=25.0,   # fits within Vercel's 60s maxDuration limit
                 max_retries=0,  # we manage retries ourselves
             )
             logger.info(

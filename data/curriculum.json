@@ -1,0 +1,339 @@
+{
+  "program": "31-Day Enterprise AI Engineering Cohort",
+  "days": [
+    {
+      "day": 1,
+      "title": "AI Fundamentals & Python Setup",
+      "tools": ["Python 3.11", "pip", "virtualenv", "Jupyter Notebook"],
+      "objectives": [
+        "Set up Python development environment with virtual environments",
+        "Understand core AI/ML concepts: supervised, unsupervised, reinforcement learning",
+        "Run a basic OpenAI API call and parse JSON responses"
+      ]
+    },
+    {
+      "day": 2,
+      "title": "OpenAI API Deep Dive",
+      "tools": ["openai SDK", "python-dotenv", ".env files"],
+      "objectives": [
+        "Authenticate and use the OpenAI Chat Completions API",
+        "Understand role-based message formatting (system, user, assistant)",
+        "Handle API errors, rate limits, and token usage"
+      ]
+    },
+    {
+      "day": 3,
+      "title": "Prompt Engineering Basics",
+      "tools": ["OpenAI Playground", "ChatGPT", "LangChain PromptTemplate"],
+      "objectives": [
+        "Write effective zero-shot and few-shot prompts",
+        "Apply chain-of-thought reasoning techniques",
+        "Evaluate prompt quality with systematic testing"
+      ]
+    },
+    {
+      "day": 4,
+      "title": "LangChain Introduction",
+      "tools": ["LangChain", "langchain-openai", "LCEL"],
+      "objectives": [
+        "Understand LangChain's core abstractions: Chains, Runnables, LLMs",
+        "Build a basic LCEL pipeline from prompt to output parser",
+        "Connect LangChain to OpenAI and Anthropic backends"
+      ]
+    },
+    {
+      "day": 5,
+      "title": "Memory & Conversation History",
+      "tools": ["LangChain ConversationBufferMemory", "Redis", "SQLite"],
+      "objectives": [
+        "Implement stateful multi-turn conversations with message history",
+        "Compare buffer, summary, and window memory strategies",
+        "Persist conversation state across server restarts"
+      ]
+    },
+    {
+      "day": 6,
+      "title": "Document Loaders & Chunking Strategies",
+      "tools": ["LangChain DocumentLoaders", "PyPDFLoader", "RecursiveCharacterTextSplitter"],
+      "objectives": [
+        "Load PDFs, HTML, and Markdown documents programmatically",
+        "Apply recursive and semantic chunking strategies",
+        "Evaluate chunk size trade-offs for retrieval accuracy"
+      ]
+    },
+    {
+      "day": 7,
+      "title": "Embeddings Explained",
+      "tools": ["Sentence Transformers", "OpenAI text-embedding-ada-002", "NumPy", "Matplotlib", "PCA"],
+      "objectives": [
+        "Convert text to high-dimensional vector embeddings using Sentence Transformers",
+        "Understand cosine similarity and Euclidean distance metrics",
+        "Visualize embedding clusters using PCA dimensionality reduction",
+        "Compare local vs. cloud embedding model trade-offs for latency and accuracy"
+      ]
+    },
+    {
+      "day": 8,
+      "title": "Vector Databases Overview",
+      "tools": ["ChromaDB", "Pinecone", "Weaviate", "FAISS", "Qdrant"],
+      "objectives": [
+        "Understand vector indexing strategies: HNSW, IVF, Flat",
+        "Persist and query vector embeddings using ChromaDB locally",
+        "Compare cloud-hosted (Pinecone) vs. self-hosted (Weaviate) vector databases",
+        "Implement metadata filtering and namespace segmentation"
+      ]
+    },
+    {
+      "day": 9,
+      "title": "Building Your First RAG Pipeline",
+      "tools": ["LangChain", "ChromaDB", "OpenAI Embeddings", "RetrievalQA"],
+      "objectives": [
+        "Build an end-to-end Retrieval-Augmented Generation pipeline",
+        "Connect document ingestion, chunking, embedding, and retrieval",
+        "Evaluate RAG output quality using LangChain evaluators"
+      ]
+    },
+    {
+      "day": 10,
+      "title": "Retrieval & Matching Engine",
+      "tools": ["ChromaDB", "FAISS", "BM25", "LangChain EnsembleRetriever"],
+      "objectives": [
+        "Implement hybrid search combining dense (semantic) and sparse (BM25) retrieval",
+        "Build query routing logic to select appropriate retriever based on query type",
+        "Apply reranking with cross-encoders to improve retrieval precision",
+        "Benchmark retrieval latency and accuracy across different indexing strategies"
+      ]
+    },
+    {
+      "day": 11,
+      "title": "Advanced RAG Optimization",
+      "tools": ["LangChain", "Cohere Reranker", "HyDE", "RAGAs"],
+      "objectives": [
+        "Implement Hypothetical Document Embeddings (HyDE) for better query expansion",
+        "Apply multi-query retrieval to broaden document coverage",
+        "Measure RAG quality using RAGAs metrics: faithfulness, answer relevancy",
+        "Handle out-of-context and hallucination edge cases"
+      ]
+    },
+    {
+      "day": 12,
+      "title": "Prompt Engineering Fundamentals",
+      "tools": ["OpenAI ChatCompletion API", "Anthropic Claude", "PromptLayer", "DSPy"],
+      "objectives": [
+        "Master advanced prompt patterns: ReAct, Self-Consistency, Tree-of-Thought",
+        "Design prompt templates with Jinja2 for dynamic variable injection",
+        "A/B test prompts systematically using PromptLayer analytics",
+        "Understand token economics: optimize prompts to reduce API costs"
+      ]
+    },
+    {
+      "day": 13,
+      "title": "Function Calling & Tool Use",
+      "tools": ["OpenAI Function Calling", "JSON Schema", "Pydantic"],
+      "objectives": [
+        "Define OpenAI function schemas using JSON Schema or Pydantic models",
+        "Implement deterministic tool dispatch patterns with error handling",
+        "Chain multiple tool calls in a single conversation turn",
+        "Handle partial and parallel function call responses"
+      ]
+    },
+    {
+      "day": 14,
+      "title": "Structured Outputs & JSON Mode",
+      "tools": ["OpenAI response_format", "Pydantic", "openai.beta.chat.completions.parse"],
+      "objectives": [
+        "Force strict JSON output using OpenAI's structured output API",
+        "Map Pydantic models directly to response_format schemas",
+        "Handle parsing errors and validation failures gracefully",
+        "Design nested schema hierarchies for complex structured data extraction"
+      ]
+    },
+    {
+      "day": 15,
+      "title": "Agentic Loops & ReAct Pattern",
+      "tools": ["LangChain AgentExecutor", "OpenAI Assistants API", "Tavily Search"],
+      "objectives": [
+        "Implement the Reason + Act (ReAct) agentic loop from scratch",
+        "Build a custom tool registry with dynamic tool selection",
+        "Handle infinite loop prevention and step-count limits",
+        "Trace and debug agent reasoning chains"
+      ]
+    },
+    {
+      "day": 16,
+      "title": "Chatbot Backend & API Integration",
+      "tools": ["FastAPI", "Uvicorn", "Pydantic", "HTTPX", "python-dotenv"],
+      "objectives": [
+        "Build a stateful multi-turn chatbot REST API with FastAPI",
+        "Implement session management using in-memory stores or Redis",
+        "Integrate external REST APIs and handle authentication headers",
+        "Design Pydantic request/response models for strict schema validation"
+      ]
+    },
+    {
+      "day": 17,
+      "title": "Streaming Responses",
+      "tools": ["FastAPI StreamingResponse", "Server-Sent Events", "OpenAI stream=True"],
+      "objectives": [
+        "Implement token-by-token streaming from OpenAI using async generators",
+        "Serve streaming responses via FastAPI's StreamingResponse and SSE",
+        "Handle client disconnections and stream interruption gracefully",
+        "Build a real-time chat UI consuming streamed responses"
+      ]
+    },
+    {
+      "day": 18,
+      "title": "Asynchronous Programming for AI",
+      "tools": ["asyncio", "aiohttp", "FastAPI async", "Celery", "Redis Queue"],
+      "objectives": [
+        "Understand event loop mechanics and coroutine scheduling",
+        "Run multiple LLM API calls concurrently using asyncio.gather",
+        "Implement background task queues for long-running AI jobs",
+        "Profile async vs. sync performance differences"
+      ]
+    },
+    {
+      "day": 19,
+      "title": "AI Security & Guardrails",
+      "tools": ["Guardrails AI", "LlamaGuard", "NeMo Guardrails", "Azure Content Safety"],
+      "objectives": [
+        "Implement prompt injection detection and prevention",
+        "Build content safety filters for PII detection and toxicity scoring",
+        "Apply role-based access control to AI-powered endpoints",
+        "Design graceful fallback responses for blocked content"
+      ]
+    },
+    {
+      "day": 20,
+      "title": "Fine-Tuning & Custom Models",
+      "tools": ["OpenAI Fine-tuning API", "Hugging Face PEFT", "LoRA", "QLoRA"],
+      "objectives": [
+        "Prepare and format training datasets in JSONL format",
+        "Submit and monitor fine-tuning jobs via OpenAI API",
+        "Evaluate fine-tuned model performance vs. base model",
+        "Apply LoRA adapters for parameter-efficient fine-tuning"
+      ]
+    },
+    {
+      "day": 21,
+      "title": "Evaluations & LLM Testing",
+      "tools": ["RAGAs", "TruLens", "DeepEval", "LGTM", "Pytest"],
+      "objectives": [
+        "Design automated LLM evaluation frameworks",
+        "Measure hallucination rate, answer relevancy, and context precision",
+        "Build regression test suites to catch model drift",
+        "Integrate evaluation pipelines into CI/CD workflows"
+      ]
+    },
+    {
+      "day": 22,
+      "title": "Multi-Agent Orchestration",
+      "tools": ["LangGraph", "CrewAI", "AutoGen", "OpenAI Swarm"],
+      "objectives": [
+        "Design multi-agent systems with supervisor and worker agent roles",
+        "Implement inter-agent communication protocols and shared state",
+        "Build parallel task execution graphs using LangGraph StateGraph",
+        "Handle agent failure recovery and task retry mechanisms"
+      ]
+    },
+    {
+      "day": 23,
+      "title": "Model Context Protocol (MCP)",
+      "tools": ["Anthropic MCP SDK", "MCP Server", "Claude Desktop", "MCP Inspector"],
+      "objectives": [
+        "Understand the MCP server-client architecture and transport layers",
+        "Build a custom MCP server exposing tools, resources, and prompts",
+        "Connect an MCP server to Claude Desktop for local tool access",
+        "Implement authentication and error handling in MCP tool definitions"
+      ]
+    },
+    {
+      "day": 24,
+      "title": "AI Pipelines & Workflow Automation",
+      "tools": ["Apache Airflow", "Prefect", "LangGraph", "n8n"],
+      "objectives": [
+        "Design directed acyclic graph (DAG) pipelines for AI workflows",
+        "Trigger AI pipelines from webhooks and scheduled jobs",
+        "Implement conditional branching and error retry in pipeline graphs",
+        "Monitor pipeline execution with observability dashboards"
+      ]
+    },
+    {
+      "day": 25,
+      "title": "Vector Database Production Patterns",
+      "tools": ["Pinecone", "Weaviate", "pgvector", "Qdrant"],
+      "objectives": [
+        "Design multi-tenant vector store architectures with namespace isolation",
+        "Implement hybrid metadata + vector filtering at scale",
+        "Optimize index parameters for production throughput and recall",
+        "Handle data migrations and index schema versioning"
+      ]
+    },
+    {
+      "day": 26,
+      "title": "Cost Optimization & Caching",
+      "tools": ["GPTCache", "Redis Semantic Cache", "LangChain CacheBackedEmbeddings"],
+      "objectives": [
+        "Implement semantic caching to avoid redundant LLM API calls",
+        "Build tiered caching: in-memory → Redis → vector cache",
+        "Profile and reduce token consumption using prompt compression",
+        "Design A/B strategies for model routing (cheap vs. powerful LLMs)"
+      ]
+    },
+    {
+      "day": 27,
+      "title": "Enterprise Architecture Patterns",
+      "tools": ["FastAPI", "SQLAlchemy", "PostgreSQL", "Alembic", "Redis"],
+      "objectives": [
+        "Design microservice architectures for AI-powered applications",
+        "Implement event-driven patterns with async message queues",
+        "Apply CQRS and event sourcing to AI workflow systems",
+        "Design database schemas for audit logging and compliance"
+      ]
+    },
+    {
+      "day": 28,
+      "title": "Docker & Kubernetes Deployment",
+      "tools": ["Docker", "Docker Compose", "Kubernetes", "Helm", "GitHub Actions"],
+      "objectives": [
+        "Containerize FastAPI AI applications with multi-stage Dockerfiles",
+        "Orchestrate multi-container AI stacks with Docker Compose",
+        "Deploy to Kubernetes with resource limits, health checks, and rolling updates",
+        "Build CI/CD pipelines with automated Docker build and push workflows"
+      ]
+    },
+    {
+      "day": 29,
+      "title": "Monitoring, Logging & Observability",
+      "tools": ["Prometheus", "Grafana", "OpenTelemetry", "Langfuse", "Datadog"],
+      "objectives": [
+        "Instrument FastAPI with Prometheus metrics and custom counters",
+        "Build Grafana dashboards for LLM latency, token usage, and error rates",
+        "Implement distributed tracing with OpenTelemetry across service boundaries",
+        "Set up LLM-specific observability with Langfuse for prompt/response logging"
+      ]
+    },
+    {
+      "day": 30,
+      "title": "Scalability & Production Hardening",
+      "tools": ["Gunicorn", "Nginx", "Redis Cluster", "AWS ECS", "GCP Cloud Run"],
+      "objectives": [
+        "Configure Gunicorn with multiple Uvicorn workers for horizontal scaling",
+        "Implement load balancing and auto-scaling policies on cloud platforms",
+        "Design circuit breakers and bulkhead patterns for AI service resilience",
+        "Conduct load testing with Locust to validate throughput targets"
+      ]
+    },
+    {
+      "day": 31,
+      "title": "Capstone Project & Final Demo",
+      "tools": ["All Stack", "Streamlit", "Gradio", "GitHub", "Vercel"],
+      "objectives": [
+        "Design and build an end-to-end production AI application integrating 5+ cohort modules",
+        "Present architecture diagram, tech stack decisions, and performance benchmarks",
+        "Deploy the capstone project publicly and document the API reference",
+        "Conduct peer code review and present technical learnings to the cohort"
+      ]
+    }
+  ]
+}

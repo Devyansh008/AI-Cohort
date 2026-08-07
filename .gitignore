@@ -1,0 +1,6 @@
+# Dependencies / System files
+.DS_Store
+node_modules/
+
+# Nested git folder
+AI-Cohort/

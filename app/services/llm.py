@@ -178,8 +178,9 @@ class LLMService:
                 last_exc = exc
             except APIConnectionError as exc:
                 logger.warning(
-                    "APIConnectionError on attempt %d/%d — retrying in %.1fs",
-                    attempt, _RETRY_ATTEMPTS, delay,
+                    "APIConnectionError on attempt %d/%d — retrying in %.1fs | cause: %s",
+                    attempt, _RETRY_ATTEMPTS, delay, exc,
+                    exc_info=True,
                 )
                 last_exc = exc
 

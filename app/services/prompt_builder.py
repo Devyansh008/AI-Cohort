@@ -21,7 +21,7 @@ from __future__ import annotations
 
 import json
 import logging
-import os
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -30,10 +30,11 @@ logger = logging.getLogger(__name__)
 # Curriculum path resolution
 # ---------------------------------------------------------------------------
 
-_DEFAULT_CURRICULUM_PATH = os.path.join(
-    os.path.dirname(os.path.dirname(os.path.dirname(__file__))),
-    "data",
-    "curriculum.json",
+# Resolve relative to THIS file so the path is absolute and Vercel-safe.
+# File lives at:  <project_root>/app/services/prompt_builder.py
+# Curriculum at:  <project_root>/data/curriculum.json
+_DEFAULT_CURRICULUM_PATH = str(
+    Path(__file__).resolve().parent.parent.parent / "data" / "curriculum.json"
 )
 
 
@@ -119,7 +120,7 @@ class PromptBuilder:
     it's pure string formatting on already-loaded data).
     """
 
-    def __init__(self, curriculum_path: str = _DEFAULT_CURRICULUM_PATH) -> None:
+    def __init__(self, curriculum_path: str = _DEFAULT_CURRICULUM_PATH) -> None:  # noqa: E501
         self._curriculum_path = curriculum_path
         self._curriculum: Dict[str, Any] = self._load_curriculum()
         # Build a quick lookup dict: day_number → curriculum_day_dict
@@ -138,7 +139,7 @@ class PromptBuilder:
 
     def _load_curriculum(self) -> Dict[str, Any]:
         """Load curriculum JSON from disk. Returns empty structure on failure."""
-        if not os.path.exists(self._curriculum_path):
+        if not Path(self._curriculum_path).exists():
             logger.warning(
                 "Curriculum file not found at %s — PromptBuilder will operate without it.",
                 self._curriculum_path,

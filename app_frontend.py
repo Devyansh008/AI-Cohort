@@ -567,7 +567,8 @@ def render_bio_card(candidate: Dict[str, Any]) -> None:
     signals = candidate.get("signals", {})
     rate = first_try_rate(signals)
     status_cls = "badge-green" if member["status"] == "COMPLETED" else "badge-blue"
-    
+
+    # Header: name / role / details — rendered as HTML (safe in main area + sidebar)
     st.markdown(
         f"""
         <div class="bio-card-container">
@@ -576,25 +577,16 @@ def render_bio_card(candidate: Dict[str, Any]) -> None:
             <div class="bio-detail">Education: <span>{member['education']}</span></div>
             <div class="bio-detail">Experience: <span>{member['yearsExperience']} Years</span></div>
             <div class="bio-detail">Status: <span class="status-badge {status_cls}">{member['status']}</span></div>
-            
-            <div class="kpi-wrapper">
-                <div class="kpi-tile">
-                    <div class="kpi-value">{signals.get('commitDays', '—')}</div>
-                    <div class="kpi-label">Commit Days</div>
-                </div>
-                <div class="kpi-tile">
-                    <div class="kpi-value">{signals.get('missionsCompleted', '—')}</div>
-                    <div class="kpi-label">Completed</div>
-                </div>
-                <div class="kpi-tile">
-                    <div class="kpi-value">{rate}%</div>
-                    <div class="kpi-label">First Try</div>
-                </div>
-            </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+    # KPI tiles — use native st.metric so Streamlit Cloud renders them correctly
+    k1, k2, k3 = st.columns(3)
+    k1.metric("Commit Days", signals.get("commitDays", "—"))
+    k2.metric("Completed", signals.get("missionsCompleted", "—"))
+    k3.metric("First Try", f"{rate}%")
 
 def render_mission_timeline(candidate: Dict[str, Any]) -> None:
     """Render colored mission pills across the top of the main area."""

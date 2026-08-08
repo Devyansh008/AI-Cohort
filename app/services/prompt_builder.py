@@ -257,7 +257,7 @@ class PromptBuilder:
             else 0
         )
 
-        curriculum_context = self._build_curriculum_context(missions)
+        curriculum_context = self._build_curriculum_context(missions[-6:])  # last 6 only to cap prompt size
         skipped_notes = self._build_skipped_day_notes(missions)
         persona_instructions = _match_persona(job_role)
 

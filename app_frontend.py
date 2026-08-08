@@ -782,6 +782,13 @@ def main() -> None:
     if not st.session_state.interview_started and len(st.session_state.messages) == 0:
         with st.spinner("AI Interviewer is analyzing the candidate profile and preparing the greeting..."):
             try:
+                # Warmup ping: wake the Vercel cold container BEFORE the heavy LLM call
+                # so cold-start latency does not eat into the 10s function execution budget.
+                try:
+                    requests.get(f"{api_url}/health", timeout=6)
+                except Exception:
+                    pass  # non-critical — proceed even if warmup fails
+
                 result = call_interview_api(
                     base_url=api_url,
                     session_id=st.session_state.session_id,

@@ -45,7 +45,7 @@ logger = logging.getLogger(__name__)
 # Constants
 # ---------------------------------------------------------------------------
 
-_MAX_HISTORY_MESSAGES = 20    # prune rolling context to this many messages
+_MAX_HISTORY_MESSAGES = 8     # keep only last 8 messages to cap per-request token count
 _RETRY_ATTEMPTS = 2           # number of retry attempts on transient failures
 _RETRY_BASE_DELAY = 0.5       # initial backoff delay in seconds (doubles each attempt)
 
@@ -211,7 +211,7 @@ class LLMService:
             model=self.model,
             messages=messages,
             temperature=0.7,
-            max_tokens=600,   # reduced to keep generation fast within Vercel timeout
+            max_tokens=400,   # keep output short to stay well under Groq TPM limits
         )
         content = response.choices[0].message.content
         logger.info(

@@ -734,37 +734,6 @@ def main() -> None:
         st.caption("Change to `http://localhost:8000` for local dev.")
         st.divider()
 
-        # ── Production API Gateway card ────────────────────────────────────────
-        st.markdown(
-            """
-            <div class="bio-card-container" style="margin-top: 0px; margin-bottom: 15px; border: 1px solid rgba(96, 165, 250, 0.25);">
-                <div style="font-size: 0.8rem; font-weight: 700; color: #60A5FA; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.3rem;">
-                    ☁️ Production API Gateway
-                </div>
-                <div style="font-size: 0.75rem; color: #94A3B8; margin-bottom: 0.75rem; line-height: 1.3;">
-                    Our FastAPI system is live on Vercel with stateful session managers and real-time Groq Llama-3.3 integrations.
-                </div>
-                <a href="https://ai-cohort-seven.vercel.app" target="_blank" style="text-decoration: none;">
-                    <button style="width: 100%; padding: 0.4rem; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; color: #60A5FA; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-bottom: 0.4rem; transition: all 0.2s ease;">
-                        🖥️ View Landing Page
-                    </button>
-                </a>
-                <a href="https://ai-cohort-seven.vercel.app/docs" target="_blank" style="text-decoration: none;">
-                    <button style="width: 100%; padding: 0.4rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; color: #34D399; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-bottom: 0.4rem; transition: all 0.2s ease;">
-                        📖 Swagger API Docs
-                    </button>
-                </a>
-                <a href="https://ai-cohort-seven.vercel.app/api/health" target="_blank" style="text-decoration: none;">
-                    <button style="width: 100%; padding: 0.4rem; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; color: #FBBF24; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
-                        ❤️ API Health Status
-                    </button>
-                </a>
-            </div>
-            """,
-            unsafe_allow_html=True,
-        )
-        st.divider()
-
         # Candidate selector
 
         st.markdown("**👤 Candidate Profile**")
@@ -796,6 +765,35 @@ def main() -> None:
             
         if st.session_state.interview_started:
             st.caption(f"Active Session: `{st.session_state.session_id[:8]}…`")
+
+        # ── Production Backend Links (collapsed to save vertical space) ────────
+        st.markdown("---")
+        with st.sidebar.expander("☁️ View Production Backend Links", expanded=False):
+            st.markdown(
+                """
+                <div class="bio-card-container" style="margin-top: 0px; margin-bottom: 0px; border: 1px solid rgba(96, 165, 250, 0.25); background: rgba(17, 25, 40, 0.45);">
+                    <div style="font-size: 0.75rem; color: #94A3B8; margin-bottom: 0.75rem; line-height: 1.3;">
+                        Our FastAPI backend is live on Vercel with stateful session management and real-time Groq Llama-3.3 integrations.
+                    </div>
+                    <a href="https://ai-cohort-seven.vercel.app" target="_blank" style="text-decoration: none;">
+                        <button style="width: 100%; padding: 0.4rem; background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); border-radius: 8px; color: #60A5FA; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-bottom: 0.4rem; transition: all 0.2s ease;">
+                            🖥️ View Landing Page
+                        </button>
+                    </a>
+                    <a href="https://ai-cohort-seven.vercel.app/docs" target="_blank" style="text-decoration: none;">
+                        <button style="width: 100%; padding: 0.4rem; background: rgba(16, 185, 129, 0.15); border: 1px solid rgba(16, 185, 129, 0.3); border-radius: 8px; color: #34D399; font-size: 0.75rem; font-weight: 600; cursor: pointer; margin-bottom: 0.4rem; transition: all 0.2s ease;">
+                            📖 Swagger API Docs
+                        </button>
+                    </a>
+                    <a href="https://ai-cohort-seven.vercel.app/api/health" target="_blank" style="text-decoration: none;">
+                        <button style="width: 100%; padding: 0.4rem; background: rgba(245, 158, 11, 0.15); border: 1px solid rgba(245, 158, 11, 0.3); border-radius: 8px; color: #FBBF24; font-size: 0.75rem; font-weight: 600; cursor: pointer; transition: all 0.2s ease;">
+                            ❤️ API Health Status
+                        </button>
+                    </a>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
             
     # ── MAIN AREA ──────────────────────────────────────────────────────────────
     st.markdown(

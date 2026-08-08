@@ -94,7 +94,7 @@ class LLMService:
     """
 
     def __init__(self) -> None:
-        self.model: str = os.environ.get("GROQ_MODEL", "llama3-70b-8192")
+        self.model: str = os.environ.get("GROQ_MODEL", "llama-3.1-8b-instant")
         self._client: Optional[OpenAI] = None  # lazy init
         logger.info("LLMService initialised with model=%s (client lazy)", self.model)
 
@@ -114,7 +114,7 @@ class LLMService:
             self._client = OpenAI(
                 api_key=api_key or "placeholder",
                 base_url=base_url,
-                timeout=25.0,   # fits within Vercel's 60s maxDuration limit
+                timeout=8.0,    # must complete before Vercel's 10s hobby-tier hard kill
                 max_retries=0,  # we manage retries ourselves
             )
             logger.info(
@@ -211,7 +211,7 @@ class LLMService:
             model=self.model,
             messages=messages,
             temperature=0.7,
-            max_tokens=1024,
+            max_tokens=600,   # reduced to keep generation fast within Vercel timeout
         )
         content = response.choices[0].message.content
         logger.info(

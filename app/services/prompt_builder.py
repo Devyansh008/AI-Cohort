@@ -195,7 +195,7 @@ class PromptBuilder:
                 if tools:
                     line += f"\n      Tools used: {', '.join(tools)}"
                 if objectives:
-                    objective_text = "; ".join(objectives)
+                    objective_text = "; ".join(objectives[:2])
                     line += f"\n      Key objectives: {objective_text}"
 
             lines.append(line)

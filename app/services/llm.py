@@ -47,7 +47,7 @@ logger = logging.getLogger(__name__)
 
 _MAX_HISTORY_MESSAGES = 20    # prune rolling context to this many messages
 _RETRY_ATTEMPTS = 2           # number of retry attempts on transient failures
-_RETRY_BASE_DELAY = 1.0       # initial backoff delay in seconds (doubles each attempt)
+_RETRY_BASE_DELAY = 0.5       # initial backoff delay in seconds (doubles each attempt)
 
 _FALLBACK_MESSAGE = (
     "I apologise — I'm experiencing a temporary connectivity issue with the AI service. "

@@ -46,7 +46,7 @@ logger = logging.getLogger(__name__)
 # ---------------------------------------------------------------------------
 
 _MAX_HISTORY_MESSAGES = 8     # keep only last 8 messages to cap per-request token count
-_RETRY_ATTEMPTS = 2           # number of retry attempts on transient failures
+_RETRY_ATTEMPTS = 1           # single attempt — retrying a 429 after 0.5s is useless
 _RETRY_BASE_DELAY = 0.5       # initial backoff delay in seconds (doubles each attempt)
 
 _FALLBACK_MESSAGE = (

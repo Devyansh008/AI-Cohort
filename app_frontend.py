@@ -15,6 +15,10 @@ from typing import Any, Dict, List, Optional
 import requests
 import streamlit as st
 
+# Text prefix used by the backend LLMService when all retries are exhausted.
+# We detect this in the frontend to show a retry UI instead of polluting the chat.
+_FALLBACK_SNIPPET = "I apologise — I'm experiencing a temporary connectivity issue"
+
 # ──────────────────────────────────────────────────────────────────────────────
 # Page config (MUST be first Streamlit call)
 # ──────────────────────────────────────────────────────────────────────────────
@@ -797,9 +801,18 @@ def main() -> None:
                 )
                 st.session_state.interview_started = True
                 agent_msg = result.get("message", "")
-                if agent_msg:
+
+                # Detect backend rate-limit / timeout fallback—don't add it to history
+                if agent_msg and _FALLBACK_SNIPPET in agent_msg:
+                    st.warning(
+                        "⚠️ **Groq API is rate-limited right now.** "
+                        "Wait 15–30 seconds, then click **Retry Greeting** below."
+                    )
+                    if st.button("🔄 Retry Greeting", key="retry_greeting"):
+                        st.rerun()
+                elif agent_msg:
                     st.session_state.messages.append({"role": "assistant", "content": agent_msg})
-                st.rerun()
+                    st.rerun()
             except Exception as exc:
                 st.error(
                     "⚠️ **Could not connect to backend to start session.**\n\n"
@@ -875,16 +888,25 @@ def main() -> None:
                 
                 agent_msg = result.get("message", "")
                 feedback = result.get("feedback")
-                
-                # Store and display agent response
-                if agent_msg:
-                    st.session_state.messages.append({"role": "assistant", "content": agent_msg})
-                    
-                # If feedback was returned, store it
-                if feedback:
-                    st.session_state.feedback = feedback
-                    
-                st.rerun()
+
+                # Detect backend rate-limit / timeout fallback — don't save it to history
+                if agent_msg and _FALLBACK_SNIPPET in agent_msg:
+                    # Remove the user message we just appended so history stays clean
+                    st.session_state.messages.pop()
+                    st.warning(
+                        "⚠️ **Groq API is rate-limited.** "
+                        "Your message was NOT lost — wait 15–30 seconds and resend it."
+                    )
+                else:
+                    # Store and display agent response
+                    if agent_msg:
+                        st.session_state.messages.append({"role": "assistant", "content": agent_msg})
+
+                    # If feedback was returned, store it
+                    if feedback:
+                        st.session_state.feedback = feedback
+
+                    st.rerun()
                 
             except requests.exceptions.ConnectionError:
                 st.warning(
